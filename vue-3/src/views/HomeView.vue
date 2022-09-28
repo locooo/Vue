@@ -1,6 +1,6 @@
 <template>
-  <header class="navdiv"></header>
   <body>
+    <header class="navdiv"></header>
     <div class="scroll">
       <van-nav-bar title="Vue3" />
       <van-sticky>
@@ -149,7 +149,7 @@ export default {
 
 body {
   height: 100%;
-  background: rgb(228, 30, 30);
+  background: white;
   padding-top: 0;
   padding-top: 0;
   padding-left: 0;
@@ -168,8 +168,8 @@ body {
 .scroll {
   overflow: auto;
   height: 100vh;
-  width: 90vw;
-  margin-left: 5vw;
+  /* width: 90vw; */
+  /* margin-left: 5vw; */
 }
 .lanmu {
   display: flex;
