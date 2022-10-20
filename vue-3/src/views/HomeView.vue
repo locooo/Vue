@@ -2,7 +2,7 @@
   <body>
     <header class="navdiv"></header>
     <div class="scroll">
-      <van-nav-bar title="Vue3" />
+      <van-nav-bar title="Vue3" safe-area-inset-top="true" />
       <van-sticky>
         <van-search v-model="value" placeholder="请输入搜索关键词" />
       </van-sticky>
@@ -31,54 +31,52 @@
       </div>
 
       <div class="scroll1">
-        <van-list
-          v-model:loading="loading"
-          v-model:error="error"
-          error-text="请求失败，点击重新加载"
-          @load="onLoad"
-          class="list1"
-        >
+        <van-list>
           <van-cell v-for="item in list" :key="item" :title="item" />
         </van-list>
       </div>
 
-      <van-sticky :offset-top="44">
+      <van-sticky :offset-top="44" @change="stickyChange">
         <van-tabs v-model:active="active">
-          <van-tab title="标签 1">内容 1</van-tab>
-          <van-tab title="标签 2" disabled>内容 2</van-tab>
-          <van-tab title="标签 3">内容 3</van-tab>
+          <van-tab title="HTML">
+            <van-list class="tab_list">
+              <van-cell
+                v-for="(item, index) in listHTML"
+                :key="item"
+                :title="item"
+                @click="htmlClick(index)"
+              />
+            </van-list>
+          </van-tab>
+
+          <van-tab title="CSS">
+            <van-list
+              class="tab_list"
+              :style="{
+                height: susp ? 'calc(80px)' : '',
+              }"
+            >
+              <van-cell
+                v-for="(item, index) in listCSS"
+                :key="item"
+                :title="item"
+                @click="cssClick(index)"
+              />
+            </van-list>
+          </van-tab>
+          <van-tab title="javaScript"
+            ><van-list class="tab_list">
+              <van-cell
+                v-for="(item, index) in listJS"
+                :key="item"
+                :title="item"
+                @click="jsClick(index)"
+              />
+            </van-list>
+          </van-tab>
         </van-tabs>
       </van-sticky>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
-      <div>我是一个搜索011</div>
+      <div class="empty"></div>
     </div>
   </body>
 </template>
@@ -88,36 +86,23 @@ import CenterItem from "./CenterItem.vue";
 import { ref } from "vue";
 export default {
   setup() {
-    const activeName = ref("a");
-
-    const list = ref([]);
-    const loading = ref(false);
-    const finished = ref(false);
-
-    const onLoad = () => {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          list.value.push(list.value.length + 1);
-        }
-
-        // 加载状态结束
-        loading.value = false;
-
-        // 数据全部加载完成
-        if (list.value.length >= 40) {
-          finished.value = true;
-        }
-      }, 1000);
-    };
-
+    const list = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+    const listHTML = ["基础", "CSS"];
+    const listHTMLPath = ["/html-base", "/html-css"];
+    const listCSS = ["sass"];
+    const listCSSPath = ["/sass-base"];
+    const listJS = ["基础"];
+    const listJSPath = ["/js-base"];
+    var susp = false;
     return {
       list,
-      onLoad,
-      loading,
-      finished,
-      activeName,
+      listHTML,
+      listHTMLPath,
+      listCSS,
+      listCSSPath,
+      listJS,
+      listJSPath,
+      susp,
     };
   },
   components: {
@@ -129,6 +114,26 @@ export default {
     },
     onClickLeft() {
       this.$router.back();
+    },
+    stickyChange(ifFixed) {
+      // this.susp = ifFixed;
+      console.log(ifFixed);
+      // if (ifFixed) {
+      //   document.removeChild(document.getElementsByClassName("empty"));
+      // }else{
+      //   document.appendChild("")
+      // }
+    },
+    htmlClick(index) {
+      console.log(index);
+      this.$router.push(this.listHTMLPath[index]);
+    },
+    jsClick(index) {
+      this.$router.push(this.listJSPath[index]);
+    },
+    cssClick(index) {
+      console.log(index);
+      this.$router.push(this.listCSSPath[index]);
     },
   },
 };
@@ -157,22 +162,35 @@ body {
   padding-right: 0;
   padding-right: 0;
 }
-.list1 {
-  height: 30vh;
-  max-height: 30vh;
+.tab_list {
+  width: 100vw;
+  height: calc(40vh);
+  overflow: scroll;
+  background: rebeccapurple;
+}
+.lanmu {
+  height: calc(20vw + 20px);
 }
 .scroll1 {
   overflow: auto;
   height: 30vh;
+  background: red;
 }
 .scroll {
   overflow: auto;
   height: 100vh;
-  /* width: 90vw; */
-  /* margin-left: 5vw; */
+}
+.scroll2 {
+  overflow: scroll;
+
+  background: red;
 }
 .lanmu {
   display: flex;
   justify-content: space-around;
+}
+
+.empty {
+  height: 60vh;
 }
 </style>
