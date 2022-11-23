@@ -52,7 +52,8 @@ export default {
 
 <style>
 .van-nav-bar {
-  --van-nav-bar-background-color: #b1d0e0;
+  /* --van-nav-bar-background-color: #b1d0e0; */
+  --van-nav-bar-background-color: var(--naMainColor);
 }
 body {
   height: 100%;

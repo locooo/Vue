@@ -32,7 +32,12 @@
 
       <div class="scroll1">
         <van-list>
-          <van-cell v-for="item in list" :key="item" :title="item" />
+          <van-cell
+            v-for="(item, index) in listVue"
+            :key="item"
+            :title="item"
+            @click="vueClick(index)"
+          />
         </van-list>
       </div>
 
@@ -86,16 +91,20 @@ import CenterItem from "./CenterItem.vue";
 import { ref } from "vue";
 export default {
   setup() {
-    const list = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+    const listVue = ["vue样式绑定"];
+    const listVuePath = ["/vue-styleLink"];
+
     const listHTML = ["基础", "CSS"];
     const listHTMLPath = ["/html-base", "/html-css"];
-    const listCSS = ["sass"];
-    const listCSSPath = ["/sass-base"];
+    const listCSS = ["sass", "less"];
+    const listCSSPath = ["/sass-base", "/less-base"];
     const listJS = ["基础"];
     const listJSPath = ["/js-base"];
     var susp = false;
+
     return {
-      list,
+      listVue,
+      listVuePath,
       listHTML,
       listHTMLPath,
       listCSS,
@@ -112,6 +121,7 @@ export default {
     click() {
       this.$router.push("/about");
     },
+
     onClickLeft() {
       this.$router.back();
     },
@@ -124,9 +134,16 @@ export default {
       //   document.appendChild("")
       // }
     },
+    vueClick(index) {
+      this.$router.push(this.listVuePath[index]);
+    },
     htmlClick(index) {
       console.log(index);
-      this.$router.push(this.listHTMLPath[index]);
+      // this.$router.push(this.listHTMLPath[index]);
+
+      // document.body.style.setProperty("background", "yellow");
+      // document.body.style.setProperty("--naMainColor", "#7F583F");
+      document.documentElement.style.setProperty("--naMainColor", "yellow");
     },
     jsClick(index) {
       this.$router.push(this.listJSPath[index]);
@@ -149,10 +166,11 @@ export default {
 }
 .van-nav-bar {
   /* padding-top: -10px; */
-  --van-nav-bar-background-color: #b1d0e0;
+  /* --van-nav-bar-background-color: #b1d0e0; */
+  --van-nav-bar-background-color: var(--naMainColor);
 }
 
-body {
+/* body {
   height: 100%;
   background: white;
   padding-top: 0;
@@ -161,7 +179,7 @@ body {
   padding-left: 0;
   padding-right: 0;
   padding-right: 0;
-}
+} */
 .tab_list {
   width: 100vw;
   height: calc(40vh);

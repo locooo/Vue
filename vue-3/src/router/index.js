@@ -18,6 +18,15 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
+      path: "/vue-styleLink",
+      name: "vue-styleLink",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../pages/vue/vue-styleLink.vue"),
+      meta: { title: "Vue样式绑定" },
+    },
+    {
       path: "/html-base",
       name: "html-base",
       component: () => import("../pages/html/html-base.vue"),
@@ -35,11 +44,30 @@ const router = createRouter({
       component: () => import("../pages/javaScript/js-base.vue"),
       meta: { title: "JS" },
     },
+
     {
       path: "/sass-base",
       name: "sass-base",
       component: () => import("../pages/style/sass-base.vue"),
       meta: { title: "sass" },
+    },
+    {
+      path: "/sass-base1",
+      name: "sass-base1",
+      component: () => import("../pages/style/sass-base1.vue"),
+      meta: { title: "sass" },
+    },
+    {
+      path: "/less-base",
+      name: "less-base",
+      component: () => import("../pages/style/less-base.vue"),
+      meta: { title: "less" },
+    },
+    {
+      path: "/less-base1",
+      name: "less-base1",
+      component: () => import("../pages/style/less-base1.vue"),
+      meta: { title: "less" },
     },
   ],
 });

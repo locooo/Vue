@@ -22,14 +22,16 @@ export default defineConfig({
   // },
   css: {
     preprocessorOptions: {
-      // less: {
-      //   modifyVars: {
-      //     hack: `true; @import (reference) "${path.resolve(
-      //       "src/assets/base.less"
-      //     )}";`,
-      //   },
-      //   javascriptEnabled: true,
-      // },
+      less: {
+        // modifyVars: {
+        //   hack: `true; @import (reference) "${path.resolve(
+        //     "src/pages/style/less/groble-less.less"
+        //   )}";`,
+        // },
+        // javascriptEnabled: true,
+        charset: false,
+        additionalData: '@import "src/pages/style/less/groble-less.less";',
+      },
       scss: {
         additionalData: `@use "src/pages/style/sass/groble-sass.module.scss" as *;@use "src/pages/style/sass/groble-sass.module.scss" as *;`,
       },

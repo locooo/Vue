@@ -6,7 +6,7 @@
       left-arrow
       @click-left="onClickLeft"
     />
-    <van-button class="button" @click="toNext">ToNext</van-button>
+    <van-button class="button" type="default" @click="toNext">我是一个按钮</van-button>
   </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ export default {
       this.$router.back();
     },
     toNext() {
-      this.$router.push("/sass-base1");
+      this.$router.push("/less-base1");
     },
   },
 };
@@ -39,11 +39,16 @@ body {
   height: 100%;
 }
 /* .button {
-  background-color: red;
-} */
+    background-color: red;
+  } */
 </style>
 <style lang="scss" scoped>
 .button {
   background-color: $theme-nav-color2;
+}
+</style>
+<style lang="less" scoped>
+.button {
+  background-color: @less-color;
 }
 </style>
